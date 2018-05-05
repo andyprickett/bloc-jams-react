@@ -21,7 +21,7 @@ nav {
 }
 
 .nav-links {
-  border: 1px solid black;
+  border: 1px solid #FFFFFF;
   font-size: 1.5em;
 }
 
@@ -29,8 +29,105 @@ h1 {
   font-size: 3em;
 }
 
-.landing {
+.landing, .library {
   background-color: #D6E9FE;
   display: flex;
+  flex-direction:column;
+}
+
+.hero-title {
+  border: 10px solid red;
+  display: flex;
   justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.selling-points, .albums {
+  border: 10px solid purple;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.album-player {
+  border: 10px solid purple;
+  background-color: #D6E9FE;
+  display: flex;
+  justify-content: space-around;
+}
+
+.point, .album, #album-info {
+  border: 5px solid green;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0;
+}
+
+#songlist-and-player {
+  border: 5px solid green;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.point-title,
+.point-description,
+.album-title,
+#album-title,
+.album-artist,
+.artist,
+.album-song-count,
+#release-info {
+  border: 1px solid orange;
+  display: flex;
+  justify-content: center;
+}
+
+.album-cover {
+  border: 5px solid yellow;
+  width: 300px;
+}
+
+#song-table {
+  display: flex;
+}
+#song-list, .player-bar {
+  border: 1px solid orange;
+  width: 500px;
+  margin: 10px 0;
+}
+
+#song-number-column,
+#song-title-column,
+#song-duration-column,
+.player-bar {
+  background: #CCC;
+}
+
+#song-number-column {
+  width: 40px;
+}
+
+#song-duration-column {
+  width: 60px;
+}
+
+.song {
+  height: 25px;
+}
+.song-duration {
+  text-align: right;
+}
+
+.player-bar {
+  display: flex;
+  justify-content: space-around;
+}
+
+#buttons, #time-control, #volume-control {
+  display: flex;
 }
