@@ -10,6 +10,8 @@ class Album extends Component {
       return album.slug === this.props.match.params.slug
     });
 
+    const buttons = album.songs.map((song, index) => index + 1);
+
     this.state = {
       album: album,
       currentSong: album.songs[0],
@@ -17,12 +19,17 @@ class Album extends Component {
       duration: album.songs[0].duration,
       isPlaying: false,
       volume: 0.8,
-      button: "hi"
+      buttons: buttons
     };
 
     this.audioElement = document.createElement('audio');
     this.audioElement.src = album.songs[0].audioSrc;
-    this.formatTime= this.formatTime.bind(this);
+
+    this.formatTime = this.formatTime.bind(this);
+    this.refreshButtons = this.refreshButtons.bind(this);
+    this.changeToPlayButton = this.changeToPlayButton.bind(this);
+    this.changeToPauseButton = this.changeToPauseButton.bind(this);
+
   }
 
   componentDidMount() {
@@ -41,6 +48,7 @@ class Album extends Component {
     this.audioElement.addEventListener('timeupdate', this.eventListeners.timeupdate);
     this.audioElement.addEventListener('durationchange', this.eventListeners.durationchange);
     this.audioElement.addEventListener('volumechange', this.eventListeners.volumechange);
+
   }
 
   componentWillUnmount() {
@@ -48,6 +56,10 @@ class Album extends Component {
     this.audioElement.removeEventListener('timeupdate', this.eventListeners.timeupdate);
     this.audioElement.removeEventListener('durationchange', this.eventListeners.durationchange);
     this.audioElement.removeEventListener('volumechange', this.eventListeners.volumechange);
+  }
+
+  refreshButtons() {
+    return this.state.album.songs.map((song, index) => index + 1);
   }
 
   play() {
@@ -65,25 +77,44 @@ class Album extends Component {
     this.setState({ currentSong: song });
   }
 
-  handleSongClick(song) {
+  handleSongClick(song, index) {
     const isSameSong = this.state.currentSong === song;
+
     if (this.state.isPlaying && isSameSong) {
       this.pause();
+
+      this.changeToPlayButton(song, index);
     } else {
-      if (!isSameSong) { this.setSong(song); }
+      if (!isSameSong) {
+        this.setSong(song);
+      }
       this.play();
+
+      this.changeToPauseButton(song, index);
     }
   }
 
-  handleMouseOver() {
+  changeToPlayButton(song, index) {
     const buttonElement = <span className="ion-play"></span>;
-    this.setState({ button: buttonElement });
+    const newButtons = this.refreshButtons();
+    newButtons[index] = buttonElement;
+    this.setState(
+      { buttons: newButtons }
+    );
   }
 
-  handleMouseOut(index) {
-    const buttonElement = <span className="song-number">{index + 1}</span>;
-    this.setState({ button: buttonElement });
-   }
+  changeToPauseButton(song, index) {
+    const buttonElement = <span className="ion-pause"></span>;
+    const newButtons = this.refreshButtons();
+    newButtons[index] = buttonElement;
+    this.setState(
+      { buttons: newButtons }
+    );
+  }
+
+  //<span className="song-number">{index + 1}</span>
+  //<span className="ion-play"></span>
+  //<span className="ion-pause"></span>
 
   handlePrevClick() {
     const currentIndex = this.state.album.songs.findIndex(song => this.state.currentSong === song);
@@ -91,6 +122,7 @@ class Album extends Component {
     const newSong = this.state.album.songs[newIndex];
     this.setSong(newSong);
     this.play(newSong);
+    this.changeToPauseButton(newSong, newIndex);
   }
 
   handleNextClick() {
@@ -100,6 +132,7 @@ class Album extends Component {
     const newSong = this.state.album.songs[newIndex];
     this.setSong(newSong);
     this.play(newSong);
+    this.changeToPauseButton(newSong, newIndex);
   }
 
   handleTimeChange(e) {
@@ -127,10 +160,6 @@ class Album extends Component {
     return `${minutes}:${seconds}`;
   }
 
-  //<span className="song-number">{index + 1}</span>
-  //<span className="ion-play"></span>
-  //<span className="ion-pause"></span>
-
   render() {
     return (
       <div className="album-player">
@@ -155,10 +184,12 @@ class Album extends Component {
               <tbody>
                 {
                   this.state.album.songs.map( (song, index) =>
-                    <tr className="song" key={index} onClick={() => this.handleSongClick(song)} onMouseOver={() => this.handleMouseOver()} onMouseOut={() => this.handleMouseOut(index)} >
+                    <tr className="song" key={index}
+                                         onClick={() => this.handleSongClick(song, index)}
+                                         >
                       <td className="song-actions">
                         <button>
-                          {this.state.button}
+                          <span>{this.state.buttons[index]}</span>
                         </button>
                       </td>
                       <td className="song-title">{song.title}</td>
@@ -177,7 +208,7 @@ class Album extends Component {
             duration={this.audioElement.duration}
             volume={this.state.volume}
             formatTime={this.formatTime}
-            handleSongClick={() => this.handleSongClick(this.state.currentSong)}
+            handleSongClick={() => this.handleSongClick(this.state.currentSong, this.state.album.songs.findIndex(song => this.state.currentSong === song))}
             handlePrevClick={() => this.handlePrevClick()}
             handleNextClick={() => this.handleNextClick()}
             handleTimeChange={(e) => this.handleTimeChange(e)}

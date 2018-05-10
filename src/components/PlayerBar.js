@@ -44,7 +44,7 @@ class PlayerBar extends Component {
           />
           <div className="icon ion-volume-high"></div>
         </section>
-        
+
       </section>
     );
   }
