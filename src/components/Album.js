@@ -15,15 +15,19 @@ class Album extends Component {
     this.state = {
       album: album,
       currentSong: album.songs[0],
+      isPlaying: false,
       currentTime: 0,
       duration: album.songs[0].duration,
-      isPlaying: false,
       volume: 0.8,
       buttons: buttons
     };
 
     this.audioElement = document.createElement('audio');
     this.audioElement.src = album.songs[0].audioSrc;
+    this.play = this.play.bind(this);
+    this.pause = this.pause.bind(this);
+    this.setSong = this.setSong.bind(this);
+    this.handleSongClick = this.handleSongClick.bind(this);
 
     this.formatTime = this.formatTime.bind(this);
     this.refreshButtons = this.refreshButtons.bind(this);
@@ -160,7 +164,7 @@ class Album extends Component {
     return `${minutes}:${seconds}`;
   }
 
-  render() {
+  render() {    
     return (
       <div className="album-player">
 
