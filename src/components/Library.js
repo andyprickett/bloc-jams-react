@@ -11,7 +11,9 @@ class Library extends Component {
   render() {
     return (
       <section className="library">
-        <h2 className="hero-title">Albums</h2>
+        <div className="hero-container">
+          <h2 className="hero-title">Albums</h2>
+        </div>
         <section className="albums">
           {
             this.state.albums.map( (album, index) =>

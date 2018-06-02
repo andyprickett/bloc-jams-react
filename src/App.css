@@ -1,5 +1,7 @@
 .App {
   font-size: 18px;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 header {
@@ -7,98 +9,153 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 0;
 }
 
 nav {
-  border: 1px solid #FFFFFF;
-  box-sizing: border-box;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 900px;
-  padding: 0 20px;
+  width: 80%;
 }
 
 .nav-links {
-  border: 1px solid #FFFFFF;
-  font-size: 1.5em;
+  border: 1px solid #FFFFF9;
+  font-size: 1.4em;
+  text-decoration: none;
+  color: #EEE;
+  padding: 10px;
+  background: #AAA;
+  border-radius: 5px;
 }
 
 h1 {
   font-size: 3em;
+  text-align: center;
+  color: #111;
 }
 
-.landing, .library {
-  background-color: #D6E9FE;
+.landing {
+  background-color: #FFFFF9;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+ }
+
+.library {
+  background-color: #EEE;
   display: flex;
   flex-direction:column;
+  min-height: 100vh;
 }
 
-.hero-title {
-  border: 10px solid red;
+.hero-container {
+  background-color: #D6E9FE;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100px;
 }
 
-.selling-points, .albums {
-  border: 10px solid purple;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.hero-title {
+  color: #888;
+  font-weight: bold;
 }
 
-.album-player {
-  border: 10px solid purple;
-  background-color: #D6E9FE;
+.selling-points {
+  display: flex;
+  flex-direction: column;
+}
+
+.albums {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
+  background: #fffff9;
 }
 
-.point, .album, #album-info {
-  border: 5px solid green;
+.point {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin: 10px 0;
-}
-
-#songlist-and-player {
-  border: 5px solid green;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  margin: 10px 0;
+  justify-content: space-around;
+  background: #EEE;
+  height: 200px;
+  border-bottom: 1px solid #999;
 }
 
 .point-title,
-.point-description,
+.point-description {
+  font-size: 1.2em;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: #333;
+}
+
+.album, #album-info {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+  background: #d4d4d4;
+  border: 3px solid #999;
+  color: #333;
+}
+
+.album-player {
+  background-color: #EEE;
+  height: 100vh;
+}
+
+.not-player-bar {
+  background: #FFFFF9;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.album-info-and-player {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+#album-info {
+  width: 300px;
+}
+
+#songlist-and-player {
+  margin: 10px 0;
+  background: #EEE;
+  width: 50%;
+}
+
 .album-title,
 #album-title,
 .album-artist,
 .artist,
 .album-song-count,
 #release-info {
-  border: 1px solid orange;
   display: flex;
   justify-content: center;
+  text-align: center;
+}
+
+#release-info {
+  margin-bottom: 10px;
+}
+
+.album .album-cover {
+  width: 200px;
 }
 
 .album-cover {
-  border: 5px solid yellow;
+  border-bottom: 2px solid #999;
   width: 300px;
 }
 
-#song-table {
-  display: flex;
-}
 #song-list, .player-bar {
-  border: 1px solid orange;
-  width: 500px;
+  width: 100%;
   margin: 10px 0;
+  color: #333;
 }
 
 #song-number-column,
@@ -109,25 +166,71 @@ h1 {
 }
 
 #song-number-column {
-  width: 40px;
+  width: 7%;
 }
 
+#song-title-column {
+  width: 80%;
+}
 #song-duration-column {
-  width: 60px;
+  width: 13%;
 }
 
 .song {
   height: 25px;
 }
+
+.song-actions {
+  text-align: center;
+}
+
+.song-actions .ion-play {
+  display: none;
+}
+
+.song-actions .ion-play.show-play {
+  display: inline-block;
+}
+
+.song-actions:hover .song-number {
+  display: none;
+}
+
+.song-actions:hover .ion-play {
+  display: inline-block;
+  opacity: 0.3;
+}
+
+.ion-play:hover .not-me {
+  display: none;
+}
+
 .song-duration {
   text-align: right;
 }
 
 .player-bar {
+  position: fixed;
+  bottom: 0;
+  margin: 0;
+  width: 100%;
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
-#buttons, #time-control, #volume-control {
+#buttons, #player-bar-song-info, #time-control, #volume-control {
   display: flex;
+}
+
+#player-bar-song-info, #time-control, #volume-control {
+  align-items: center;
+}
+
+#player-bar-song-info {
+  flex-direction: column;
+}
+
+#previous, #play-pause, #next {
+  width: 50px;
 }

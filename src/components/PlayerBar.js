@@ -17,6 +17,11 @@ class PlayerBar extends Component {
           </button>
         </section>
 
+        <section id="player-bar-song-info">
+          <span>{`"${this.props.currentSong.title}" by`}</span>
+          <span>{this.props.album.artist}</span>
+        </section>
+
         <section id="time-control">
           <div className="current-time">{this.props.formatTime(this.props.currentTime)}</div>
           <input
