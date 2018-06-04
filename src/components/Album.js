@@ -17,7 +17,9 @@ class Album extends Component {
       isPaused: false,
       currentTime: 0,
       duration: album.songs[0].duration,
-      volume: 0.8
+      volume: 0.8,
+      isHovered: false,
+      hoveredSong: null
     };
 
     this.audioElement = document.createElement('audio');
@@ -30,6 +32,8 @@ class Album extends Component {
     this.handleVolumeChange = this.handleVolumeChange.bind(this);
 
     this.formatTime = this.formatTime.bind(this);
+    this.handleMouseEnter = this.handleMouseEnter.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
   }
 
   componentDidMount() {
@@ -88,13 +92,11 @@ class Album extends Component {
 
     if (this.state.isPlaying && isSameSong) {
       this.pause();
-
     } else {
       if (!isSameSong) {
         this.setSong(song);
       }
       this.play();
-
     }
   }
 
@@ -140,13 +142,30 @@ class Album extends Component {
     return `${minutes}:${seconds}`;
   }
 
+  handleMouseEnter(song) {
+    this.setState(
+      { isHovered: true,
+        hoveredSong: song }
+    );
+  }
+
+  handleMouseLeave(song){
+    this.setState(
+      { isHovered: false,
+        hoveredSong: null }
+    );
+  }
+
   render() {
-    const playIcon = <span className="ion-play show-play"></span>;
+    //const playIcon = <span className="ion-play show-play"></span>;
+    //const pauseIcon = <span className="ion-pause"></span>;
+    //const { isPlaying, isPaused, currentSong } = this.state;
+    const playIcon = <span className="ion-play"></span>;
     const pauseIcon = <span className="ion-pause"></span>;
-    const { isPlaying, isPaused, currentSong } = this.state;
-    //<span className="song-number">{index + 1}</span>
-    //<span className="ion-play"></span>
-    //<span className="ion-pause"></span>
+    const playHoverIcon = <span className="ion-play hovered"></span>;
+
+    const { isPlaying, isPaused, isHovered, hoveredSong, currentSong } = this.state;
+
 
     return (
       <div className="album-player">
@@ -178,15 +197,26 @@ class Album extends Component {
                     {
                       this.state.album.songs.map( (song, index) =>
                         <tr className="song" key={index}
-                                             onClick={() => this.handleSongClick(song)}
+                                             onClick={() => this.handleSongClick(song, index)}
                                              >
-                          <td className="song-actions">
+                          <td className="song-actions"
+                              onMouseEnter={() => this.handleMouseEnter(song)}
+                              onMouseLeave={() => this.handleMouseLeave(song)}>
+                            {
+                              (isPlaying && (currentSong === song) && pauseIcon) ||
+                              (isPaused && (currentSong === song) && playIcon) ||
+                              (isHovered && (hoveredSong === song) && playHoverIcon) ||
+                              <span className="song-number">{index + 1}</span>
+
+                            /*
                             {
                               (isPlaying && (currentSong === song) && pauseIcon) ||
                               (isPaused && (currentSong === song) && playIcon) ||
                               <span className="song-number">{index + 1}</span>
                             }
                             <span className={((isPlaying || isPaused) && (currentSong === song)) ? "not-me" : "ion-play"}></span>
+                            */
+                            }
                           </td>
                           <td className="song-title">{song.title}</td>
                           <td className="song-duration">{this.formatTime(song.duration)}</td>

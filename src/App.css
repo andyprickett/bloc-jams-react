@@ -183,7 +183,7 @@ h1 {
 .song-actions {
   text-align: center;
 }
-
+/*
 .song-actions .ion-play {
   display: none;
 }
@@ -203,6 +203,11 @@ h1 {
 
 .ion-play:hover .not-me {
   display: none;
+}
+*/
+.song-actions .ion-play.hovered {
+  display: inline-block;
+  opacity: 0.3;
 }
 
 .song-duration {
