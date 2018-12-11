@@ -1,3 +1,28 @@
+# now PLAY
+
+#### Simple music player single-page application.
+
+## Features
+* Play mp3's.
+* Player bar and song list controls.
+* Song duration real-time display.
+
+## Technologies
+* React (Create React App).
+* React Router.
+* Flexbox.
+
+## Comments
+This application is based on a project completed for the Bloc Web Developer Track program. It is operational on my local machine, and in a [live deployment on Heroku](https://andyprickett-now-play.herokuapp.com/). It should be able to be cloned.
+
+## Usage
+I am using this project for learning and experimentation with technologies.
+
+* After cloning, run `npm install`.
+* Start the app with `npm start`.
+
+--------------------
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
